@@ -56,11 +56,9 @@ function () {
       var ship = document.querySelector("#".concat(this.id));
       console.log(ship);
       ship.innerHTML = "\n            <h3>".concat(this.name, "</h3>\n            <h5>").concat(this.hitPoints, "HP</h5>\n        ");
-      ship.style.backgroundColor = this.color;
-
-      if (this.isDestroyed = true) {
-        ship.classList.remove("ship");
-      }
+      ship.style.backgroundColor = this.color; // if (this.isDestroyed = true) {
+      //     ship.classList.remove("ship");
+      // }
     }
   }, {
     key: "damageShip",
@@ -68,7 +66,7 @@ function () {
       this.hitPoints -= this.damageReceived;
 
       if (this.hitPoints <= 0) {
-        destroyShip();
+        this.destroyShip();
       } else {
         this.updateShip();
       }
@@ -150,18 +148,33 @@ var makeAttackShips = function makeAttackShips(shipsArr) {
   }
 };
 
+var gameWon = function gameWon() {
+  var gameArea = document.querySelector('.ships');
+  gameArea.innerHTML = "\n        <h1>Game Over - You Win!<h1>\n        <button class=\"restart-button\" id=\"restart\">Play again!</button>\n    ";
+};
+
 document.addEventListener('DOMContentLoaded', function () {
-  shipsArr = [];
+  var shipsArr = [];
   makeMotherShip(shipsArr);
   makeDefenceShips(shipsArr);
-  makeAttackShips(shipsArr);
-  console.log(shipsArr);
+  makeAttackShips(shipsArr); // console.log(shipsArr)
+
   var shoot = document.querySelector("#shoot");
   shoot.addEventListener('click', function () {
-    // let objArr = document.querySelectorAll('.ship')
-    // console.log(objArr)
     var i = Math.floor(Math.random() * shipsArr.length);
-    console.log(shipsArr[i].id); // objArr[i].
+    var randomShip = shipsArr[i]; // console.log(randomShip)
+
+    randomShip.damageShip();
+
+    if (randomShip.isDestroyed) {
+      shipsArr.splice(i, 1);
+    }
+
+    console.log(shipsArr.length); // objArr[i].
+
+    if (shipsArr.length === 0) {
+      gameWon();
+    }
   }); // mothership = new MotherShip(1)
   // defenceship1 = new DefenceShip(1)
   // attackship1 = new AttackShip(1)

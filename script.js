@@ -36,15 +36,15 @@ class Ship {
             <h5>${this.hitPoints}HP</h5>
         `;
         ship.style.backgroundColor = this.color;
-        if (this.isDestroyed = true) {
-            ship.classList.remove("ship");
-        }
+        // if (this.isDestroyed = true) {
+        //     ship.classList.remove("ship");
+        // }
     }
 
     damageShip() {
         this.hitPoints -= this.damageReceived;
         if (this.hitPoints <= 0) {
-            destroyShip()
+            this.destroyShip()
         } else {
             this.updateShip()
         }
@@ -98,22 +98,36 @@ const makeAttackShips = (shipsArr) => {
     }
 }
 
+const gameWon = () => {
+    let gameArea = document.querySelector('.ships')
+    gameArea.innerHTML = `
+        <h1>Game Over - You Win!<h1>
+        <button class="restart-button" id="restart">Play again!</button>
+    `
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    shipsArr = []
+    let shipsArr = []
 
     makeMotherShip(shipsArr)
     makeDefenceShips(shipsArr)
     makeAttackShips(shipsArr)
-    console.log(shipsArr)
+    // console.log(shipsArr)
 
     let shoot = document.querySelector("#shoot")
     shoot.addEventListener('click', () => {
-        // let objArr = document.querySelectorAll('.ship')
-        // console.log(objArr)
         let i = Math.floor(Math.random() * shipsArr.length)
-        console.log(shipsArr[i].id)
+        let randomShip = shipsArr[i]
+        // console.log(randomShip)
+        randomShip.damageShip()
+        if (randomShip.isDestroyed) {
+            shipsArr.splice(i, 1)
+        }
+        console.log(shipsArr.length)
         // objArr[i].
-        
+        if (shipsArr.length === 0) {
+            gameWon()
+        }
     })
     
 
