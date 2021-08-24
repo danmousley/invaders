@@ -1,12 +1,21 @@
+have an array of objects {
+    - on button press interact with array[random number depending on length of array]
+    - this gets an object
+    - then we can interact with the object
+    - call on damageShip
+}
+
 class Ship {
-    constructor(name, hitPoints, damageReceived, color) {
+    constructor(name, hitPoints, damageReceived, color, type, id) {
         this.name = name;
         this.hitPoints = hitPoints;
         this.damageReceived = damageReceived;
         this.color = color;
         this.height = 50px;
         this.width = 70px;
+        this.type = type;
         this.isDestroyed = false;
+        this.id = `${this.type}${id}`
     }
 
     makeShip() {
@@ -15,14 +24,17 @@ class Ship {
         ship.style.height = this.height;
         ship.style.textAlign = "center";
         ship.style.backgroundColor = this.color
+        ship.id = `${this.id}`
         ship.innerHTML = `
             <h3>${this.name}</h3>
             <h5>${this.hitPoints}</h5>
         `
-        document.body.appendChild(ship)
+        row = document.getElementbyClass(`${this.type}`)
+        row.appendChild(ship)
     }
 
-    updateShip(ship) {
+    updateShip() {
+        ship = document.getElementByID(`${this.id}`)
         ship.innerHTML = `
             <h3>${this.name}</h3>
             <h5>${this.hitPoints}</h5>
@@ -30,30 +42,43 @@ class Ship {
         ship.style.backgroundColor = this.color
     }
 
-    damageShip(ship) {
+    damageShip() {
         this.hitPoints -= this.damageReceived;
         if (this.hitPoints <= 0) {
-            destroyShip(ship)
+            destroyShip()
         } else {
             this.updateShip()
         }
     }
 
-    destroyShip(ship) {
+    destroyShip() {
         this.color = "black"
         this.hitPoints = "0"
         this.isDestroyed = true
-        this.updateShip(ship)
+        this.updateShip()
     }
 }
 
 
-class MotherShip {
-    constructor("Mother Ship", 100, 9, "red")
+class MotherShip extends ship {
+    constructor(id) {
+        super("Mother Ship", 100, 9, "red", "mother-ship", id)
+    }
 
     gameOver() {
 
     }
 }
 
+class DefenceShip extends ship {
+    constructor(id) {
+        super("Defence Ship", 80, 10, "green", "defence-ships", id)
+    }
+}
+
+class AttackShip extends ship {
+    constructor(id) {
+        super("Attack Ship", 45, 12, "green", "attack-ships", id)
+    }
+}
 

@@ -1,0 +1,15 @@
+.ships {
+  width: 70vw;
+  margin: 0 auto;
+}
+
+.mother-ship, .defence-ships, .attack-ships {
+  display: flex;
+  justify-content: center;
+}
+
+.shoot {
+  padding: 5%;
+  display: flex;
+  justify-content: center;
+}
