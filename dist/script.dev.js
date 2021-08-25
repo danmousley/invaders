@@ -27,9 +27,7 @@ function () {
     this.name = name;
     this.hitPoints = hitPoints;
     this.damageReceived = damageReceived;
-    this.color = color; // this.height = "100px";
-    // this.width = "100px";
-
+    this.color = color;
     this.type = type;
     this.isDestroyed = false;
     this.id = "".concat(this.type, "-").concat(id);
@@ -38,16 +36,13 @@ function () {
   _createClass(Ship, [{
     key: "makeShip",
     value: function makeShip() {
-      var ship = document.createElement('div'); // ship.style.width = this.width;
-      // ship.style.height = this.height;
-
+      var ship = document.createElement('div');
       ship.style.textAlign = "center";
       ship.style.backgroundColor = this.color;
       ship.id = "".concat(this.id);
       ship.classList.add("ship");
       ship.innerHTML = "\n            <h3>".concat(this.name, "</h3>\n            <h5>").concat(this.hitPoints, " HP</h5>\n        ");
-      var row = document.getElementsByClassName("".concat(this.type)); // console.log(row[0])
-
+      var row = document.getElementsByClassName("".concat(this.type));
       row[0].appendChild(ship);
     }
   }, {
@@ -56,9 +51,7 @@ function () {
       var ship = document.querySelector("#".concat(this.id));
       console.log(ship);
       ship.innerHTML = "\n            <h3>".concat(this.name, "</h3>\n            <h5>").concat(this.hitPoints, "HP</h5>\n        ");
-      ship.style.backgroundColor = this.color; // if (this.isDestroyed = true) {
-      //     ship.classList.remove("ship");
-      // }
+      ship.style.backgroundColor = this.color;
     }
   }, {
     key: "damageShip",
@@ -149,7 +142,6 @@ var makeAttackShips = function makeAttackShips(shipsArr) {
 };
 
 var gameWon = function gameWon(shipsArr) {
-  // shipsArr = []
   var allShips = document.querySelectorAll(".ship");
 
   for (var i = 0; i < allShips.length; i++) {
@@ -165,55 +157,34 @@ var gameWon = function gameWon(shipsArr) {
   restartButton.addEventListener("click", function () {
     gameArea.style.display = "none";
     shipsArea.style.display = "block";
-    startGame(shipsArr); // makeDefenceShips(shipsArr);
-    // makeAttackShips(shipsArr);
-    // return shipsArr;
-    // console.log(shipsArr)
+    startGame(shipsArr);
   });
 };
 
 var startGame = function startGame(shipsArr) {
-  // shipsArr = []
   makeMotherShip(shipsArr);
   makeDefenceShips(shipsArr);
   makeAttackShips(shipsArr);
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-  var shipsArr = []; // makeMotherShip(shipsArr)
-  // makeDefenceShips(shipsArr)
-  // makeAttackShips(shipsArr)
-
-  startGame(shipsArr); // console.log(shipsArr)
-  // let allShips = document.querySelectorAll(".ship")
-  // console.log(allShips.length)
-
+  var shipsArr = [];
+  startGame(shipsArr);
   var shoot = document.querySelector("#shoot");
   shoot.addEventListener('click', function () {
     console.log(shipsArr);
     var i = Math.floor(Math.random() * shipsArr.length);
-    var randomShip = shipsArr[i]; // console.log(randomShip)
-
+    var randomShip = shipsArr[i];
     randomShip.damageShip();
 
     if (randomShip.name === "Mother Ship" && randomShip.isDestroyed) {
       shipsArr.splice(0, shipsArr.length);
     } else if (randomShip.isDestroyed) {
       shipsArr.splice(i, 1);
-    } // console.log(shipsArr.length)
-    // objArr[i].
-
+    }
 
     if (shipsArr.length === 0) {
       gameWon(shipsArr);
     }
-  }); // mothership = new MotherShip(1)
-  // defenceship1 = new DefenceShip(1)
-  // attackship1 = new AttackShip(1)
-  // attackship1.makeShip()
-  // mothership.makeShip()
-  // defenceship1.makeShip()
-  // mothership.damageShip()
-  // defenceship1.damageShip()
-  // console.log(mothership)
+  });
 });

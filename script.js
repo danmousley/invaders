@@ -4,8 +4,6 @@ class Ship {
         this.hitPoints = hitPoints;
         this.damageReceived = damageReceived;
         this.color = color;
-        // this.height = "100px";
-        // this.width = "100px";
         this.type = type;
         this.isDestroyed = false;
         this.id = `${this.type}-${id}`;
@@ -13,8 +11,6 @@ class Ship {
 
     makeShip() {
         let ship = document.createElement('div')
-        // ship.style.width = this.width;
-        // ship.style.height = this.height;
         ship.style.textAlign = "center";
         ship.style.backgroundColor = this.color
         ship.id = `${this.id}`;
@@ -24,7 +20,6 @@ class Ship {
             <h5>${this.hitPoints} HP</h5>
         `
         let row = document.getElementsByClassName(`${this.type}`);
-        // console.log(row[0])
         row[0].appendChild(ship)
     }
 
@@ -36,9 +31,6 @@ class Ship {
             <h5>${this.hitPoints}HP</h5>
         `;
         ship.style.backgroundColor = this.color;
-        // if (this.isDestroyed = true) {
-        //     ship.classList.remove("ship");
-        // }
     }
 
     damageShip() {
@@ -99,7 +91,6 @@ const makeAttackShips = (shipsArr) => {
 }
 
 const gameWon = (shipsArr) => {
-    // shipsArr = []
     let allShips = document.querySelectorAll(".ship")
     for (let i = 0; i < allShips.length; i++) {
         allShips[i].remove()
@@ -117,15 +108,10 @@ const gameWon = (shipsArr) => {
         gameArea.style.display = "none";
         shipsArea.style.display = "block";
         startGame(shipsArr);
-        // makeDefenceShips(shipsArr);
-        // makeAttackShips(shipsArr);
-        // return shipsArr;
-        // console.log(shipsArr)
     })
 }
 
 const startGame = (shipsArr) => {
-    // shipsArr = []
     makeMotherShip(shipsArr)
     makeDefenceShips(shipsArr)
     makeAttackShips(shipsArr)
@@ -134,43 +120,22 @@ const startGame = (shipsArr) => {
 document.addEventListener('DOMContentLoaded', () => {
     let shipsArr = []
 
-    // makeMotherShip(shipsArr)
-    // makeDefenceShips(shipsArr)
-    // makeAttackShips(shipsArr)
     startGame(shipsArr)
-    // console.log(shipsArr)
-
-    // let allShips = document.querySelectorAll(".ship")
-    // console.log(allShips.length)
 
     let shoot = document.querySelector("#shoot")
     shoot.addEventListener('click', () => {
         console.log(shipsArr)
         let i = Math.floor(Math.random() * shipsArr.length)
         let randomShip = shipsArr[i]
-        // console.log(randomShip)
         randomShip.damageShip()
         if (randomShip.name === "Mother Ship" && randomShip.isDestroyed) {
             shipsArr.splice(0, shipsArr.length)
         } else if (randomShip.isDestroyed) {
             shipsArr.splice(i, 1)
         }
-        // console.log(shipsArr.length)
-        // objArr[i].
         if (shipsArr.length === 0) {
             gameWon(shipsArr)
         }
     })
-    
-
-    // mothership = new MotherShip(1)
-    // defenceship1 = new DefenceShip(1)
-    // attackship1 = new AttackShip(1)
-    // attackship1.makeShip()
-    // mothership.makeShip()
-    // defenceship1.makeShip()
-    // mothership.damageShip()
-    // defenceship1.damageShip()
-    // console.log(mothership)
 })
     
