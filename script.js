@@ -98,35 +98,67 @@ const makeAttackShips = (shipsArr) => {
     }
 }
 
-const gameWon = () => {
-    let gameArea = document.querySelector('.ships')
+const gameWon = (shipsArr) => {
+    // shipsArr = []
+    let allShips = document.querySelectorAll(".ship")
+    for (let i = 0; i < allShips.length; i++) {
+        allShips[i].remove()
+    }
+    let shipsArea = document.querySelector('.ships');
+    let gameArea = document.querySelector('.game-over');
+    shipsArea.style.display = "none";
+    gameArea.style.display = "flex";
     gameArea.innerHTML = `
-        <h1>Game Over - You Win!<h1>
+        <h1 class="title">Game Over - You Win!<h1>
         <button class="restart-button" id="restart">Play again!</button>
     `
+    const restartButton = document.querySelector("#restart")
+    restartButton.addEventListener("click", () => {
+        gameArea.style.display = "none";
+        shipsArea.style.display = "block";
+        startGame(shipsArr);
+        // makeDefenceShips(shipsArr);
+        // makeAttackShips(shipsArr);
+        // return shipsArr;
+        // console.log(shipsArr)
+    })
+}
+
+const startGame = (shipsArr) => {
+    // shipsArr = []
+    makeMotherShip(shipsArr)
+    makeDefenceShips(shipsArr)
+    makeAttackShips(shipsArr)
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     let shipsArr = []
 
-    makeMotherShip(shipsArr)
-    makeDefenceShips(shipsArr)
-    makeAttackShips(shipsArr)
+    // makeMotherShip(shipsArr)
+    // makeDefenceShips(shipsArr)
+    // makeAttackShips(shipsArr)
+    startGame(shipsArr)
     // console.log(shipsArr)
+
+    // let allShips = document.querySelectorAll(".ship")
+    // console.log(allShips.length)
 
     let shoot = document.querySelector("#shoot")
     shoot.addEventListener('click', () => {
+        console.log(shipsArr)
         let i = Math.floor(Math.random() * shipsArr.length)
         let randomShip = shipsArr[i]
         // console.log(randomShip)
         randomShip.damageShip()
-        if (randomShip.isDestroyed) {
+        if (randomShip.name === "Mother Ship" && randomShip.isDestroyed) {
+            shipsArr.splice(0, shipsArr.length)
+        } else if (randomShip.isDestroyed) {
             shipsArr.splice(i, 1)
         }
-        console.log(shipsArr.length)
+        // console.log(shipsArr.length)
         // objArr[i].
         if (shipsArr.length === 0) {
-            gameWon()
+            gameWon(shipsArr)
         }
     })
     

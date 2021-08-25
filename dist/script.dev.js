@@ -148,32 +148,64 @@ var makeAttackShips = function makeAttackShips(shipsArr) {
   }
 };
 
-var gameWon = function gameWon() {
-  var gameArea = document.querySelector('.ships');
-  gameArea.innerHTML = "\n        <h1>Game Over - You Win!<h1>\n        <button class=\"restart-button\" id=\"restart\">Play again!</button>\n    ";
+var gameWon = function gameWon(shipsArr) {
+  // shipsArr = []
+  var allShips = document.querySelectorAll(".ship");
+
+  for (var i = 0; i < allShips.length; i++) {
+    allShips[i].remove();
+  }
+
+  var shipsArea = document.querySelector('.ships');
+  var gameArea = document.querySelector('.game-over');
+  shipsArea.style.display = "none";
+  gameArea.style.display = "flex";
+  gameArea.innerHTML = "\n        <h1 class=\"title\">Game Over - You Win!<h1>\n        <button class=\"restart-button\" id=\"restart\">Play again!</button>\n    ";
+  var restartButton = document.querySelector("#restart");
+  restartButton.addEventListener("click", function () {
+    gameArea.style.display = "none";
+    shipsArea.style.display = "block";
+    startGame(shipsArr); // makeDefenceShips(shipsArr);
+    // makeAttackShips(shipsArr);
+    // return shipsArr;
+    // console.log(shipsArr)
+  });
+};
+
+var startGame = function startGame(shipsArr) {
+  // shipsArr = []
+  makeMotherShip(shipsArr);
+  makeDefenceShips(shipsArr);
+  makeAttackShips(shipsArr);
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-  var shipsArr = [];
-  makeMotherShip(shipsArr);
-  makeDefenceShips(shipsArr);
-  makeAttackShips(shipsArr); // console.log(shipsArr)
+  var shipsArr = []; // makeMotherShip(shipsArr)
+  // makeDefenceShips(shipsArr)
+  // makeAttackShips(shipsArr)
+
+  startGame(shipsArr); // console.log(shipsArr)
+  // let allShips = document.querySelectorAll(".ship")
+  // console.log(allShips.length)
 
   var shoot = document.querySelector("#shoot");
   shoot.addEventListener('click', function () {
+    console.log(shipsArr);
     var i = Math.floor(Math.random() * shipsArr.length);
     var randomShip = shipsArr[i]; // console.log(randomShip)
 
     randomShip.damageShip();
 
-    if (randomShip.isDestroyed) {
+    if (randomShip.name === "Mother Ship" && randomShip.isDestroyed) {
+      shipsArr.splice(0, shipsArr.length);
+    } else if (randomShip.isDestroyed) {
       shipsArr.splice(i, 1);
-    }
+    } // console.log(shipsArr.length)
+    // objArr[i].
 
-    console.log(shipsArr.length); // objArr[i].
 
     if (shipsArr.length === 0) {
-      gameWon();
+      gameWon(shipsArr);
     }
   }); // mothership = new MotherShip(1)
   // defenceship1 = new DefenceShip(1)

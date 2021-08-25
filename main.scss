@@ -1,15 +1,108 @@
+* {
+    font-family: "consolas";
+    margin: 0px;
+    padding: 0px;
+    font-size: 20px;
+}
+
+body {
+    background-image: url("images/space.jpg");
+    // height: 100vh;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2% 0;
+}
+
+.title {
+    // text-align: center;
+    color: white;
+    font-size: 60px;
+}
+
+.invader {
+    height: 5%;
+    width: 5%;
+    padding: 0 3%;
+}
+
+.fire-img {
+    height: 80px;
+    width: 80px;
+    background-color: transparent;
+    margin: 0px;
+    padding: 0;
+}
+
 .ships {
-    width: 70vw;
+    width: 60vw;
+    height: 60vh;
     margin: 0 auto;
+    display: block;
+    // border: 1px white solid;
+    margin-bottom: 2%;
+}
+
+.game-over {
+    width: 70vw;
+    height: 60vh;
+    margin: 0 auto;
+    display: none;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .mother-ship, .defence-ships, .attack-ships {
     display: flex;
     justify-content: center;
+    // border: 1px white solid;
+    margin: 0px;
+    height: 30%;
+    margin: 1% 0;
 }
 
 .shoot {
-    padding: 5%;
+    padding: 0%;
     display: flex;
     justify-content: center;
+}
+
+.shoot--button {
+    background-color: transparent;
+    border: none;
+}
+
+.shoot--button:hover {
+    cursor: pointer;
+}
+
+.ship {
+    margin: 0 3px;
+    padding: 10px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.restart-button {
+    background-color: transparent;
+    font-size: 20px;
+    color: white;
+    border: 2px solid white;
+    border-radius: 5%;
+    padding: 1%;
+    height: 50px;
+    width: 150px;
+}
+
+.restart-button:hover {
+    cursor: pointer;
 }
